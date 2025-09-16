@@ -2,9 +2,15 @@ const mongoose = require("mongoose");
 
 const menuSchema = new mongoose.Schema(
   {
-    type: { type: String, required: true },
-    name: { type: String, required: true },
+    isFood: { type: Boolean, default: true },
+    name: {
+      type: String,
+      required: true,
+      unique: true,
+      set: (v) => v.toUpperCase(),
+    },
     price: { type: Number, required: true },
+    description: { type: String, required: true },
   },
   {
     timestamps: true,

@@ -26,7 +26,6 @@ app.use((_, res) => {
 
 // Additional error
 app.use((err, _, res, next) => {
-  console.log("rfdchxvghdbxuikjniokm");
   // Duplicate key error (code 11000)
   if (err.code === 11000) {
     const field = Object.keys(err.keyValue)[0]; // e.g. "name"
