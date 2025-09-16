@@ -35,4 +35,42 @@ const getSingleMenu = async (req, res) => {
   }
 };
 
-module.exports = { getMenus, addMenu, getSingleMenu };
+const deleteMenu = async (req, res) => {
+  const menuId = req?.params?.id;
+  if (!mongoose.Types.ObjectId.isValid(menuId)) {
+    return res.status(404).json({
+      message: "Menu not found!",
+    });
+  }
+
+  const deleted = await Menus.findByIdAndDelete(menuId);
+  if (deleted) {
+    return res.status(200).json({
+      data: null,
+      message: "Menu deleted successfully",
+    });
+  }
+};
+
+const updateMenu = async (req, res) => {
+  const menuId = req?.params?.id;
+  const body = req.body;
+  if (!mongoose.Types.ObjectId.isValid(menuId)) {
+    return res.status(404).json({
+      message: "Menu not found!",
+    });
+  }
+  const updateMenu = await Menus.findByIdAndUpdate(menuId, body, {
+    new: true,
+    runValidators: true,
+  });
+
+  if (updateMenu) {
+    res.status(200).json({
+      message: "Menu updated successfully",
+      data: updateMenu,
+    });
+  }
+};
+
+module.exports = { getMenus, addMenu, getSingleMenu, updateMenu, deleteMenu };
