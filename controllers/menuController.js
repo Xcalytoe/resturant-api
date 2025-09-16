@@ -26,7 +26,7 @@ const getSingleMenu = async (req, res) => {
     });
   }
   const menu = await Menus.findById(menuId);
-  console.log(menu);
+
   if (menu) {
     return res.status(200).json({
       data: menu,
